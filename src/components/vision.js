@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 const imagesPath = {
     minus: "https://www.allthetests.com/quiz30/picture/pic_1387718017_1.jpg",
     plus: "https://i.stack.imgur.com/WeyM8.jpg"
