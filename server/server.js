@@ -49,6 +49,26 @@ app.get('/items',(req,res)=>{
       res.send(results);
   })
 })
+app.get('/userlist',(req,res)=>{
+  let sql ='select * from users'
+  dbs.query(sql,(err,results) =>{
+      if(err){
+          throw err
+      }
+      
+      res.send(results);
+  })
+})
+app.delete('/delete/:id',(req,res)=>{
+  const id= req.params.id
+  dbs.query("DELETE FROM users WHERE ID =?",id,(err,results) => {
+    if(err){
+        throw err
+    }
+    
+    res.send(results);
+})
+})
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Dhvani application." });

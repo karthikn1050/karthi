@@ -5,6 +5,7 @@ import CheckButton from "react-validation/build/button";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AuthService from "../services/auth.service";
 
+
 const required = value => {
   if (!value) {
     return (
@@ -26,7 +27,10 @@ export default class Login extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
+      redirect: null,
+      userReady: false,
+      currentUser: { username: "" }
     };
   }
 
@@ -55,7 +59,7 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/profile");
+          this.props.history.push("/inspection");
           window.location.reload();
         },
         error => {
@@ -78,19 +82,27 @@ export default class Login extends Component {
       });
     }
   }
+  componentDidMount() {
+    const currentUser = AuthService.getCurrentUser();
+
+    if (!currentUser) this.setState({ redirect: "/home" });
+    this.setState({ currentUser: currentUser, userReady: true })
+  }
 
   render() {
+ 
     return (
       <div className="col-md-12">
-        <div className="card card-container">
+        <div className="container" >
           
 
-          <Form style={{width:"300px"}}
+          <Form style={{width:"300px",marginLeft:"370px"}}
             onSubmit={this.handleLogin}
             ref={c => {
               this.form = c;
             }}
           >
+            <h2>Login</h2>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <Input
@@ -145,4 +157,6 @@ export default class Login extends Component {
       </div>
     );
   }
+
+
 }

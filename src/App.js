@@ -7,10 +7,10 @@ import Report from './components/report'
 import { BrowserRouter,Switch, Route, Link } from "react-router-dom";
 //import Chart from './components/chart';
 import AuthService from "./services/auth.service";
-
+//import Sidebar from './components/sidebar/Sidebar'
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
+//import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -68,11 +68,11 @@ class App extends Component {
             Dashboard
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
-            </li>
+            </li> */}
 
             {showModeratorBoard && (
               <li className="nav-item">
@@ -83,55 +83,62 @@ class App extends Component {
             )}
 
             {showAdminBoard && (
+              <>
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                <Link to={"/register"} className="nav-link">
+                  User Management
                 </Link>
               </li>
+             
+            </>
             )}
 
             {currentUser && (
+              <>
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={"/inspection"} className="nav-link">
+                  Inspection
                 </Link>
               </li>
+              <li className="nav-item">
+              <Link to={"/report"} className="nav-link">
+                Report
+              </Link>
+            </li>
+            </>
             )}
           </div>
 
           {currentUser ? (
             <div className="navbar-nav ml-auto">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
                   {currentUser.username}
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  Logout
                 </a>
               </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={"/"} className="nav-link">
                   Login
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
+             
             </div>
           )}
         </nav>
-
+          
         <div className="container mt-3">
+        
           <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path={["/", "/home"]} component={Login} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />

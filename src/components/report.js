@@ -2,22 +2,40 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import Chart from './chart';
+import AuthService from '../services/auth.service';
 export default class report extends Component {
 	constructor(){
 		super();
 		this.state = {
 		  items:[],
+		  showModeratorBoard: false,
+		  showAdminBoard: false,
+		  currentUser: undefined
 		 
 	  }
 	}
     
-	componentDidMount(){
+	
+	componentDidMount() {
+		const user = AuthService.getCurrentUser();
+	
+		if (user) {
+		  this.setState({
+			currentUser: user,
+			showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+			showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+		  });
+		}
 		axios.get('http://localhost:8080/items')
         .then(response => this.setState({ items: response.data }));
-	}
+
+	  }
 	render() {
 		const items= this.state.items;
+		const {  currentUser } = this.state;
         return (
+			<>
+			{currentUser&&(
 			<div>
 			<h2 style={{marginLeft:"500px"}}>Report</h2>
 			<Chart />
@@ -45,6 +63,8 @@ export default class report extends Component {
 		  
 		 
            </div>
+			)}  
+		   </>
         )
     }
 }
