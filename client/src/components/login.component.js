@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AuthService from "../services/auth.service";
+import { Redirect } from "react-router-dom";
 
 
 const required = value => {
@@ -59,7 +60,7 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/inspection");
+          this.props.history.push("/selectitem");
           window.location.reload();
         },
         error => {
@@ -85,12 +86,14 @@ export default class Login extends Component {
   componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
 
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
+    
   }
 
   render() {
- 
+    const user = localStorage.getItem('user') // your saved token in localstorage
+    if (user && user !== 'undefined') {            // check for not undefined
+      return <Redirect to={"/report"} />;          // now you can redirect your desired route
+    }
     return (
       <div className="col-md-12">
         <div className="container" >

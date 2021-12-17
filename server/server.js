@@ -50,7 +50,7 @@ app.get('/items',(req,res)=>{
   })
 })
 app.get('/userlist',(req,res)=>{
-  let sql ='select * from users'
+  let sql ='select * from users where id NOT IN(select id from users where username="adminn");'
   dbs.query(sql,(err,results) =>{
       if(err){
           throw err

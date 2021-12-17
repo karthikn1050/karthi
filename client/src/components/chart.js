@@ -22,8 +22,8 @@ export default class chart extends Component {
         return (
             <div>
             <Chart
-              width={"500px"}
-              height={"300px"}
+              width={"600px"}
+              height={"400px"}
               chartType="PieChart"
               loader={<div>Loading Chart</div>}
               data={[

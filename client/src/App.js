@@ -3,7 +3,7 @@ import './App.css';
 //import Vision from './components/vision';
 import Image from './components/image';
 import Report from './components/report'
-
+import PrivateRoute from './components/private';
 import { BrowserRouter,Switch, Route, Link } from "react-router-dom";
 //import Chart from './components/chart';
 import AuthService from "./services/auth.service";
@@ -12,12 +12,12 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 //import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
-
+import Tablef from './components/tablef'
+import Troubleshoot from './components/troubleshoot';
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import Selectitem from './components/selectitem';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -96,7 +96,7 @@ class App extends Component {
             {currentUser && (
               <>
               <li className="nav-item">
-                <Link to={"/inspection"} className="nav-link">
+                <Link to={"/selectitem"} className="nav-link">
                   Inspection
                 </Link>
               </li>
@@ -105,6 +105,11 @@ class App extends Component {
                 Report
               </Link>
             </li>
+            <li className="nav-item">
+                <Link to={"/troubleshoot"} className="nav-link">
+                 Troubleshoot
+                </Link>
+              </li>
             </>
             )}
           </div>
@@ -142,11 +147,14 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
-            <Route path="/inspection" component={Image} />
-            <Route path="/report" component={Report} />
+
+           
+            <PrivateRoute path="/troubleshoot" component={Troubleshoot} />
+          <PrivateRoute path="/table" component={Tablef} />
+          <PrivateRoute path="/inspection" component={Image} />
+          <PrivateRoute path="/report" component={Report} />
+          <PrivateRoute path="/selectitem" component={Selectitem} />
+          
           </Switch>
         </div>
         </BrowserRouter>

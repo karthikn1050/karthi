@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import Chart from './chart';
 import AuthService from '../services/auth.service';
+import TableSectionInbound from './tablef';
 export default class report extends Component {
 	constructor(){
 		super();
@@ -36,10 +37,15 @@ export default class report extends Component {
         return (
 			<>
 			{currentUser&&(
-			<div>
-			<h2 style={{marginLeft:"500px"}}>Report</h2>
+			<div className='container'>
+				<h2 style={{alignItems:"center"}}>Report</h2>
+			<div className='row'>
+			
+			<div className='col-5' style={{marginRight:"50px"}}>
 			<Chart />
-			<table style={{width:"1000px",marginLeft:"80px"}} class="table">
+			</div>
+			<div className='col-6'>
+			{/* <table style={{}} class="table">
 			<thead class="thead-dark">
 			  <tr>
 				
@@ -59,8 +65,11 @@ export default class report extends Component {
 			  </tr>
 			))}
 			</tbody>
-		  </table>
-		  
+		  </table> */}
+		  <TableSectionInbound />
+		  </div>
+		  <div></div>
+		  </div>
 		 
            </div>
 			)}  
